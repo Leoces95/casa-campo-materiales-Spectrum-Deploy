@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using CasaCampo.Api.Data;
+using CasaCampo.Api.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,12 +21,15 @@ app.MapGet("/", () => Results.Ok(new
     descripcion = "Registro y control de materiales para la construcción de una vivienda de campo",
     endpoints = new[]
     {
-        "GET /health"
+        "GET /health",
+        "GET|POST /api/materiales",
+        "GET|PUT|DELETE /api/materiales/{id}"
     }
 }));
 
 app.MapGet("/health", () => Results.Ok(new { status = "ok", version = AppVersion }));
 
+app.MapMateriales();
 
 app.Run();
 
