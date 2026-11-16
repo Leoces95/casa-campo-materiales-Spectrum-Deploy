@@ -1,0 +1,43 @@
+# Pipeline de Integración Continua (CI) - Casa de Campo, Control de Materiales
+# Se ejecuta automáticamente con cada push a main: restaura, compila y ejecuta las pruebas.
+
+name: $(Date:yyyyMMdd)$(Rev:.r)
+
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    exclude:
+      - docs/*
+      - evidencias/*
+      - README.md
+
+pr: none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  buildConfiguration: Release
+
+steps:
+  - task: UseDotNet@2
+    displayName: Instalar .NET SDK (según global.json)
+    inputs:
+      packageType: sdk
+      useGlobalJson: true
+
+  - script: dotnet restore CasaCampo.sln
+    displayName: Restaurar dependencias
+
+  - script: dotnet build CasaCampo.sln -c $(buildConfiguration) --no-restore
+    displayName: Compilar
+
+  - task: DotNetCoreCLI@2
+    displayName: Ejecutar pruebas
+    inputs:
+      command: test
+      projects: tests/**/*.csproj
+      arguments: -c $(buildConfiguration) --no-build
+      publishTestResults: true
