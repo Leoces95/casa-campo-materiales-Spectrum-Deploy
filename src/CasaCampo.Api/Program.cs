@@ -23,13 +23,17 @@ app.MapGet("/", () => Results.Ok(new
     {
         "GET /health",
         "GET|POST /api/materiales",
-        "GET|PUT|DELETE /api/materiales/{id}"
+        "GET|PUT|DELETE /api/materiales/{id}",
+        "POST /api/materiales/{id}/entradas",
+        "POST /api/materiales/{id}/salidas",
+        "GET /api/movimientos"
     }
 }));
 
 app.MapGet("/health", () => Results.Ok(new { status = "ok", version = AppVersion }));
 
 app.MapMateriales();
+app.MapMovimientos();
 
 app.Run();
 
