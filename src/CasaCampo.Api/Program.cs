@@ -26,7 +26,9 @@ app.MapGet("/", () => Results.Ok(new
         "GET|PUT|DELETE /api/materiales/{id}",
         "POST /api/materiales/{id}/entradas",
         "POST /api/materiales/{id}/salidas",
-        "GET /api/movimientos"
+        "GET /api/movimientos",
+        "GET /api/reportes/stock-bajo",
+        "GET /api/reportes/resumen"
     }
 }));
 
@@ -34,6 +36,7 @@ app.MapGet("/health", () => Results.Ok(new { status = "ok", version = AppVersion
 
 app.MapMateriales();
 app.MapMovimientos();
+app.MapReportes();
 
 app.Run();
 
