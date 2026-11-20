@@ -1,0 +1,58 @@
+# Pipeline de Entrega Continua (CD) - Casa de Campo, Control de Materiales
+# No compila: se dispara cuando CasaCampo-CI termina bien en main,
+# descarga ese mismo artefacto "drop" y lo despliega en Azure App Service.
+# No contiene secretos: la autenticación está en la service connection de Azure DevOps.
+
+trigger: none
+pr: none
+
+resources:
+  pipelines:
+    - pipeline: ci               # alias local del artefacto de CI
+      source: CasaCampo-CI       # nombre EXACTO de la pipeline de CI en Azure DevOps
+      trigger:
+        branches:
+          include:
+            - main
+
+variables:
+  azureSubscription: sc-azure-casacampo                  # nombre de la service connection (no es secreto)
+  webAppName: casacampo-spectrum-deploy                       # TODO Mariana Suaza: nombre real del App Service
+  appUrl: https://casacampo-spectrum-deploy.azurewebsites.net # TODO Mariana Suaza: URL exacta que muestra el portal
+
+stages:
+  - stage: Deploy
+    displayName: Desplegar en Azure App Service
+    jobs:
+      - deployment: DeployWeb
+        displayName: Despliegue a producción
+        pool:
+          vmImage: ubuntu-latest
+        environment: production
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: ci
+                  artifact: drop
+
+                - script: |
+                    echo "Run de CI:      $(resources.pipeline.ci.runName)"
+                    echo "Commit origen:  $(resources.pipeline.ci.sourceCommit)"
+                    echo "Rama:           $(resources.pipeline.ci.sourceBranch)"
+                  displayName: Trazabilidad del artefacto
+
+                - task: AzureWebApp@1
+                  displayName: Desplegar zip en App Service
+                  inputs:
+                    azureSubscription: $(azureSubscription)
+                    appType: webAppLinux
+                    appName: $(webAppName)
+                    package: $(Pipeline.Workspace)/ci/drop/**/*.zip
+                    runtimeStack: DOTNETCORE|10.0
+
+                - script: |
+                    curl --fail --retry 5 --retry-delay 15 $(appUrl)/health
+                    echo ""
+                    curl --fail $(appUrl)/api/reportes/resumen
+                  displayName: Comprobación de salud y funcionalidad
