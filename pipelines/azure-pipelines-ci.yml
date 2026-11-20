@@ -1,5 +1,6 @@
 # Pipeline de Integración Continua (CI) - Casa de Campo, Control de Materiales
-# Se ejecuta automáticamente con cada push a main: restaura, compila y ejecuta las pruebas.
+# Se ejecuta automáticamente con cada push a main: restaura, compila, ejecuta las pruebas
+# y publica el artefacto "drop" (zip de la API) que consume la pipeline de CD.
 
 name: $(Date:yyyyMMdd)$(Rev:.r)
 
@@ -41,3 +42,18 @@ steps:
       projects: tests/**/*.csproj
       arguments: -c $(buildConfiguration) --no-build
       publishTestResults: true
+
+  - task: DotNetCoreCLI@2
+    displayName: Publicar la API (zip)
+    inputs:
+      command: publish
+      publishWebProjects: false
+      projects: src/CasaCampo.Api/CasaCampo.Api.csproj
+      arguments: -c $(buildConfiguration) --no-build -o $(Build.ArtifactStagingDirectory)
+      zipAfterPublish: true
+
+  - task: PublishPipelineArtifact@1
+    displayName: Publicar artefacto drop
+    inputs:
+      targetPath: $(Build.ArtifactStagingDirectory)
+      artifact: drop
