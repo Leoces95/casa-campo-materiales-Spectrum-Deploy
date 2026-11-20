@@ -1,0 +1,86 @@
+# Pruebas manuales - Casa de Campo, Control de Materiales
+# Abrir en VS Code (extensión REST Client) o Visual Studio y pulsar "Send Request".
+# Para el Video 2, cambiar @baseUrl por la URL pública de Azure.
+
+@baseUrl = http://localhost:5242
+
+### Información y versión
+GET {{baseUrl}}/
+
+### Comprobación de salud
+GET {{baseUrl}}/health
+
+### Todos los materiales
+GET {{baseUrl}}/api/materiales
+
+### Materiales del techo (zinc, teja)
+GET {{baseUrl}}/api/materiales?categoria=Cubierta
+
+### Buscar por nombre
+GET {{baseUrl}}/api/materiales?buscar=bloque
+
+### Crear un material
+POST {{baseUrl}}/api/materiales
+Content-Type: application/json
+
+{
+  "nombre": "Puntilla de 2 pulgadas",
+  "categoria": "Ferreteria",
+  "unidad": "libra",
+  "precioUnitario": 6000,
+  "stockInicial": 10,
+  "stockMinimo": 4,
+  "proveedor": "Ferretería Central"
+}
+
+### Actualizar precio del balastro (id 10)
+PUT {{baseUrl}}/api/materiales/10
+Content-Type: application/json
+
+{
+  "nombre": "Balastro",
+  "categoria": "Agregados",
+  "unidad": "m3",
+  "precioUnitario": 75000,
+  "stockMinimo": 2,
+  "proveedor": "Volquetas San José"
+}
+
+### Llegan 20 láminas de zinc (id 5)
+POST {{baseUrl}}/api/materiales/5/entradas
+Content-Type: application/json
+
+{
+  "cantidad": 20,
+  "nota": "Compra en Ferretería Central"
+}
+
+### Salen 150 bloques para el muro de la cocina (id 1)
+POST {{baseUrl}}/api/materiales/1/salidas
+Content-Type: application/json
+
+{
+  "cantidad": 150,
+  "destino": "Muro de la cocina"
+}
+
+### Salida mayor al stock: debe responder 409
+POST {{baseUrl}}/api/materiales/10/salidas
+Content-Type: application/json
+
+{
+  "cantidad": 50,
+  "destino": "Piso del corredor"
+}
+
+### Historial de movimientos
+GET {{baseUrl}}/api/movimientos
+
+### Qué hay que comprar
+GET {{baseUrl}}/api/reportes/stock-bajo
+
+### Resumen del inventario
+GET {{baseUrl}}/api/reportes/resumen
+
+### Eliminar un material sin movimientos (ajustar el id)
+DELETE {{baseUrl}}/api/materiales/12
