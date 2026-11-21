@@ -10,7 +10,7 @@
 | Daniel Zapata | Desarrollo de la aplicación | Proyecto API, modelos, CRUD de materiales, entradas y salidas |
 | Paulina Vargas | Configuración de CI | Pipeline de CI, conexión GitHub ↔ Azure DevOps, artefacto, solución de fallos |
 | Mariana Suaza | Configuración de CD y Azure | Reportes, App Service, service connection, pipeline de CD, validación final |
-| Sebastian Ciro | Pruebas, evidencias y videos | Pruebas xUnit, pruebas manuales, guiones, capturas, edición de videos |
+| Sebastian Ciro | Pruebas, evidencias y videos | Pruebas xUnit, pruebas manuales, capturas, preparación y edición de videos |
 
 ## Plan de commits (3 por integrante)
 
@@ -29,10 +29,10 @@ Cada integrante hace sus commits **desde su propia cuenta de GitHub**. En cada c
 | 9 | Paulina Vargas | `ci: publicar artefacto drop para la CD` | `pipelines/azure-pipelines-ci.yml` |
 | 10 | Leonel Martinez | `docs: plan de trabajo y distribución del equipo` | `docs/plan-de-trabajo.md` |
 | 11 | Mariana Suaza | `cd: pipeline que despliega el artefacto de CI en App Service` | `pipelines/azure-pipelines-cd.yml` |
-| 12 | Sebastian Ciro | `docs: guiones de videos y pruebas manuales` | `docs/guion-video-*.md`, `docs/pruebas-manuales.http` |
+| 12 | Sebastian Ciro | `docs: pruebas manuales de la API` | `docs/pruebas-manuales.http` |
 | 13 | Paulina Vargas | `docs: registro de incidencias de CI/CD` | `docs/incidencias.md` |
 | 14 | Mariana Suaza | `docs: configuración de Azure App Service y manejo de secretos` | `docs/azure-app-service.md` |
-| 15 | Leonel Martinez | `docs: README completo con aplicación, ejecución y flujo CI/CD` | `README.md` |
+| 15 | Leonel Martinez | `docs: README completo con aplicación, ejecución y flujo CI/CD` | `README.md`, `docs/plan-de-trabajo.md` |
 
 **Commits en vivo y de cierre** (se hacen a mano, después de los anteriores):
 
@@ -54,7 +54,7 @@ No todos los commits necesitan Azure. Los commits 1 a 4 son código y se prueban
 | Hoy, antes o justo después del commit 1 | Leonel crea la organización `spectrum-deploy-itm` y el proyecto privado **Spectrum-Deploy** en Azure DevOps (https://dev.azure.com/spectrum-deploy-itm) e invita al equipo. Al crearla la vincula a su suscripción Azure for Students (*billing*), y con eso se activa sola la capa gratuita de paralelismo: 1 parallel job Microsoft-hosted, 1.800 min/mes. Ya no existe el formulario de solicitud. Paulina lo verifica en *Organization settings → Pipelines → Parallel jobs*. La suscripción Azure for Students es la de Leonel: le asigna a Mariana el rol **Propietario (Owner)** en el grupo de recursos `rg-casacampo` (Control de acceso IAM). | Leonel Martinez y Paulina Vargas |
 | Commits 1 a 4 | Nada de Azure. Repo en GitHub, colaboradores (incluido oalarconpe), código y `dotnet test` en local. | Cada autor |
 | Después del commit 5 | Azure DevOps → Pipelines → New pipeline → GitHub → autorizar → elegir el repo → Existing YAML → `/pipelines/azure-pipelines-ci.yml` → Run. Renombrar la pipeline a **CasaCampo-CI**. Desde aquí los commits 6, 7, 8, 9 y 11 disparan la CI solos (primera evidencia de CI). | Paulina Vargas |
-| Entre los commits 9 y 11 | Portal de Azure (suscripción de Leonel, grupo `rg-casacampo`): Web App Linux .NET 8 `casacampo-spectrum-deploy`. Azure DevOps: service connection `sc-azure-casacampo` y environment `production` (ver `docs/azure-app-service.md`). Poner el nombre y la URL reales en el YAML de CD antes de subirlo. | Mariana Suaza |
+| Entre los commits 9 y 11 | Portal de Azure (suscripción de Leonel, grupo `rg-casacampo`): Web App Linux `casacampo-spectrum-deploy` con pila .NET 10 (el portal ya no ofrece .NET 8) y la variable `DOTNET_ROLL_FORWARD=Major` para ejecutar la API de .NET 8. Azure DevOps: service connection `sc-azure-casacampo` y environment `production` (ver `docs/azure-app-service.md`). Poner el nombre y la URL reales en el YAML de CD antes de subirlo. | Mariana Suaza |
 | Después del commit 11 | Azure DevOps → New pipeline → Existing YAML → `/pipelines/azure-pipelines-cd.yml`. Renombrarla **CasaCampo-CD**. Ejecutarla una vez a mano y pulsar *Permit* en los permisos. Desde aquí cada CI exitosa en main despliega sola. | Mariana Suaza |
 | Commits 12 a 15 | Solo documentación: no disparan la CI (exclusión de rutas a propósito). Completar datos reales de Azure en los documentos. | Cada autor |
 | Antes de grabar | Ensayo completo: abrir la URL pública, probar los endpoints con `docs/pruebas-manuales.http` y confirmar que la última run de CD terminó en verde. La URL debe mostrar la versión 1.0.0. | Todo el equipo |
