@@ -12,7 +12,7 @@ var app = builder.Build();
 
 // Versión visible de la aplicación. Se cambia en los "cambios controlados"
 // de los videos para demostrar que CI/CD publica la nueva versión en Azure.
-const string AppVersion = "1.1.0";
+const string AppVersion = "2.0.0";
 
 app.MapGet("/", () => Results.Ok(new
 {

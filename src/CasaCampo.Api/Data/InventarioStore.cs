@@ -29,6 +29,7 @@ public class InventarioStore
         Sembrar("Arena de río", CategoriaMaterial.Agregados, "m3", 85_000m, 3, 2, "Volquetas San José");
         Sembrar("Balastro", CategoriaMaterial.Agregados, "m3", 70_000m, 1.5m, 2, "Volquetas San José");
         Sembrar("Cemento gris 50 kg", CategoriaMaterial.Aglomerantes, "bulto", 32_000m, 15, 10, "Ferretería Central");
+        Sembrar("Cal hidratada 25 kg", CategoriaMaterial.Aglomerantes, "bulto", 18_000m, 6, 4, "Ferretería Central");
     }
 
     public IReadOnlyList<Material> ListarMateriales()
