@@ -19,11 +19,11 @@ La aplicación es sencilla a propósito: el foco es la automatización, la verif
 
 | Integrante (nombre completo) | Rol | Aporte en el repositorio (commits) | Aporte en Azure DevOps / Azure |
 |---|---|---|---|
-| Leonel Martinez | Gestión de GitHub y documentación | Creación del repo y estructura inicial, plan de trabajo, README, acceso del docente, memoria PDF | Proyecto Spectrum-Deploy en Azure DevOps, conexión GitHub ↔ Azure Pipelines |
-| Daniel Zapata | Desarrollo de la aplicación | Proyecto base, modelos y datos semilla, CRUD de materiales, entradas y salidas | Verificación de la API en la URL pública, Health check del App Service |
-| Paulina Vargas | Configuración de CI | Pipeline de CI (build y pruebas), artefacto drop, registro de incidencias | Creación y seguimiento de la pipeline CasaCampo-CI |
-| Mariana Suaza | Configuración de CD y Azure | Reportes de inventario, pipeline de CD, App Service y manejo de secretos | App Service, service connection, environment y pipeline CasaCampo-CD |
-| Sebastian Ciro | Pruebas, evidencias y videos | Pruebas xUnit del CRUD, movimientos y reportes, pruebas manuales, evidencias, preparación y edición de videos | Revisión de pruebas en las runs, capturas de CI/CD y videos |
+| Leonel Antonio Martínez Silgado | Gestión de GitHub y documentación | Creación del repo y estructura inicial, plan de trabajo, README, acceso del docente, documento de evidencias técnicas | Proyecto Spectrum-Deploy en Azure DevOps, conexión GitHub ↔ Azure Pipelines |
+| Daniel Zapata Ramírez | Desarrollo de la aplicación | Proyecto base, modelos y datos semilla, CRUD de materiales, entradas y salidas | Verificación de la API en la URL pública, Health check del App Service |
+| María Paulina Vargas Lenis | Configuración de CI | Pipeline de CI (build y pruebas), artefacto drop, registro de incidencias | Creación y seguimiento de la pipeline CasaCampo-CI |
+| Mariana Suaza Serna | Configuración de CD y Azure | Reportes de inventario, pipeline de CD, App Service y manejo de secretos | App Service, service connection, environment y pipeline CasaCampo-CD |
+| Sebastián Ciro Medellín | Pruebas, evidencias y videos | Pruebas xUnit del CRUD, movimientos y reportes, pruebas manuales, evidencias, preparación y edición de videos | Revisión de pruebas en las runs, capturas de CI/CD y videos |
 
 Detalle de tareas y commits: [docs/plan-de-trabajo.md](docs/plan-de-trabajo.md).
 
@@ -86,9 +86,9 @@ Configuración del App Service y manejo de secretos: [docs/azure-app-service.md]
 
 - Repositorio: https://github.com/Leoces95/casa-campo-materiales-Spectrum-Deploy (rama `main`)
 - URL pública: https://casacampo-spectrum-deploy.azurewebsites.net
-- Ejecuciones de CI: _(enlace)_
-- Ejecuciones de CD: _(enlace)_
-- Video 1 – CI: _(enlace YouTube)_
-- Video 2 – CD: _(enlace YouTube)_
+- Ejecuciones de CI y CD (pipelines CasaCampo-CI y CasaCampo-CD): https://dev.azure.com/spectrum-deploy-itm/Spectrum-Deploy/_build
+- Historial de despliegues (environment `production`): https://dev.azure.com/spectrum-deploy-itm/Spectrum-Deploy/_environments/1?view=deployments
+- Video 1 – Integración Continua (CI): https://youtu.be/9q0rBqOoPFo
+- Video 2 – Entrega Continua (CD): https://youtu.be/SygL0fX5UNE
 - Capturas: [evidencias/](evidencias/)
 - Incidencias y soluciones: [docs/incidencias.md](docs/incidencias.md)
