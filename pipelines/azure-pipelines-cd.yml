@@ -17,8 +17,8 @@ resources:
 
 variables:
   azureSubscription: sc-azure-casacampo                  # nombre de la service connection (no es secreto)
-  webAppName: casacampo-spectrum-deploy                       # TODO Mariana Suaza: nombre real del App Service
-  appUrl: https://casacampo-spectrum-deploy.azurewebsites.net # TODO Mariana Suaza: URL exacta que muestra el portal
+  webAppName: casacampo-spectrum-deploy                  # nombre del App Service en Azure
+  appUrl: https://casacampo-spectrum-deploy.azurewebsites.net # URL pública de la aplicación
 
 stages:
   - stage: Deploy
@@ -51,8 +51,10 @@ stages:
                     package: $(Pipeline.Workspace)/ci/drop/**/*.zip
                     runtimeStack: DOTNETCORE|10.0
 
+                # El plan F1 tarda en arrancar después del despliegue: se espera y se reintenta.
                 - script: |
-                    curl --fail --retry 5 --retry-delay 15 $(appUrl)/health
+                    sleep 30
+                    curl --fail --retry 10 --retry-delay 15 --retry-all-errors $(appUrl)/health
                     echo ""
-                    curl --fail $(appUrl)/api/reportes/resumen
+                    curl --fail --retry 10 --retry-delay 15 --retry-all-errors $(appUrl)/api/reportes/resumen
                   displayName: Comprobación de salud y funcionalidad
