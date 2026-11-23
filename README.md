@@ -88,7 +88,7 @@ Configuración del App Service y manejo de secretos: [docs/azure-app-service.md]
 - URL pública: https://casacampo-spectrum-deploy.azurewebsites.net
 - Ejecuciones de CI y CD (pipelines CasaCampo-CI y CasaCampo-CD): https://dev.azure.com/spectrum-deploy-itm/Spectrum-Deploy/_build
 - Historial de despliegues (environment `production`): https://dev.azure.com/spectrum-deploy-itm/Spectrum-Deploy/_environments/1?view=deployments
-- Video 1 – Integración Continua (CI): https://youtu.be/9q0rBqOoPFo
-- Video 2 – Entrega Continua (CD): https://youtu.be/SygL0fX5UNE
+- Video 1 – Integración Continua (CI): https://youtu.be/SygL0fX5UNE
+- Video 2 – Entrega Continua (CD): https://youtu.be/9q0rBqOoPFo
 - Capturas: [evidencias/](evidencias/)
 - Incidencias y soluciones: [docs/incidencias.md](docs/incidencias.md)
